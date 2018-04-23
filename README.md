@@ -1,4 +1,4 @@
-# manpage-elastic
+# manpage-elastic [![Build Status](https://travis-ci.org/ephraimkunz/manpage-elastic.svg?branch=master)](https://travis-ci.org/ephraimkunz/manpage-elastic)
 Inspired by [iridakos's tutorial](https://iridakos.com/tutorials/2018/04/12/elasticsearch-linux-man-pages.html), but ported to Go with additional features.
 
 ## Usage
