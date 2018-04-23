@@ -1,0 +1,6 @@
+language: go
+install: false
+script: go test -race -v
+
+go:
+  - master
