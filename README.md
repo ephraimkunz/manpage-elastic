@@ -9,3 +9,4 @@ Inspired by [iridakos's tutorial](https://iridakos.com/tutorials/2018/04/12/elas
 ## Additional Features
 * Concurrent index creation with configurable number of goroutines
 * Command-line flags to force creation of an index and do health checks
+* Coming soon: API and basic web frontend
