@@ -43,8 +43,9 @@ func main() {
 
 	if *runServer {
 		searchCreator := web.SearchCreator{}
-		searchHandler := web.SearchHandler{searchCreator.Run}
+		searchHandler := web.NewSearchHandler(searchCreator.Run)
 		http.HandleFunc("/search", searchHandler.Search)
+		http.HandleFunc("/", searchHandler.Welcome)
 
 		log.Fatal(http.ListenAndServe(":8080", nil))
 	}
