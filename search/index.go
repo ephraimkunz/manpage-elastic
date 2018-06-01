@@ -1,4 +1,4 @@
-package main
+package search
 
 import (
 	"bytes"
@@ -25,7 +25,7 @@ type Manpage struct {
 	Text        string `json:"manpage,omitempty"`
 }
 
-func createIndex(client *elastic.Client) {
+func CreateIndex(client *elastic.Client) {
 	removeExistingManpageIndex(client)
 	createManpageIndex(client)
 	pages := getManpages()
