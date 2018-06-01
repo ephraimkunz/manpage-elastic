@@ -1,6 +1,6 @@
 language: go
 install: false
-script: go test -race -v
+script: go test -race -v ./...
 
 go:
   - master
