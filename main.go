@@ -12,7 +12,6 @@ import (
 )
 
 var shouldIndex = flag.Bool("index", false, "Should man pages be indexed into ElasticSearch?")
-var searchText = flag.String("query", "", "Query to search for in man pages")
 var verbose = flag.Bool("verbose", false, "Print verbose output (cluster status)")
 var runServer = flag.Bool("runServer", true, "Runs a server for remote queries")
 
@@ -35,10 +34,6 @@ func main() {
 
 	if *shouldIndex {
 		search.CreateIndex(client)
-	}
-
-	if len(*searchText) > 0 {
-		search.RunSearch(client, *searchText)
 	}
 
 	if *runServer {

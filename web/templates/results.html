@@ -1,2 +1,8 @@
-<title>Search Results</title>
 <h1>Search Results</h1>
+<div>
+    <h3>Number of hits for query: {{ .NumHits }}</h3>
+    <h3>Top results</h3>
+    {{range .Hits}}
+        {{.Ordinal}}. {{.Command}} : {{.Description}}<br>
+    {{end}}
+</div>

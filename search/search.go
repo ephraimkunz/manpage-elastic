@@ -16,9 +16,10 @@ type SearchResults struct {
 type Hit struct {
 	Command     string `json:"command,omitempty"`
 	Description string `json:"description,omitempty"`
+	Ordinal     int    `json:"ordinal,omitempty"`
 }
 
-func RunSearch(client *elastic.Client, search string) (*SearchResults, error) {
+func RunSearch(client *elastic.Client, search string, count int64) (*SearchResults, error) {
 	q := elastic.NewMultiMatchQuery(search, "command", "description^3", "manpage^3").
 		Operator("or").
 		TieBreaker(1.0).
@@ -26,7 +27,7 @@ func RunSearch(client *elastic.Client, search string) (*SearchResults, error) {
 		Type("cross_fields")
 
 	res, err := client.Search(manpageIndexName).
-		Size(10).
+		Size(int(count)).
 		Query(q).
 		Do(context.TODO())
 
@@ -41,9 +42,9 @@ func createSearchResults(res *elastic.SearchResult, search string) *SearchResult
 	var ttyp Manpage
 	results := &SearchResults{NumHits: res.TotalHits()}
 
-	for _, item := range res.Each(reflect.TypeOf(ttyp)) {
+	for idx, item := range res.Each(reflect.TypeOf(ttyp)) {
 		if t, ok := item.(Manpage); ok {
-			hit := Hit{Command: strings.Trim(t.Command, `"`), Description: strings.Trim(t.Description, `"`)}
+			hit := Hit{Ordinal: idx + 1, Command: strings.Trim(t.Command, `"`), Description: strings.Trim(t.Description, `"`)}
 			results.Hits = append(results.Hits, hit)
 		}
 	}
